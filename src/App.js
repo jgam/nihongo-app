@@ -6,6 +6,7 @@ import Level from './Level';
 import Vocab from './Vocab';
 
 class App extends React.Component {
+  //constructor sets the state
   constructor(props){
     super(props);
     this.state = {
@@ -15,7 +16,7 @@ class App extends React.Component {
       words: []
     };
   }
-
+  //handle functions update the states
   handleLevel = input_level => {
     this.setState({
       page_state: '2',
