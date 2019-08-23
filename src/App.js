@@ -25,6 +25,7 @@ class App extends React.Component {
 
   handleDays = input_days => {
     this.setState({
+      page_state:'3',
       days: input_days
     });
   }
@@ -44,7 +45,7 @@ class App extends React.Component {
       return <Day handleButton={this.handleDays}/>
     }
     else if(page_state === '3'){
-      return ;
+      return <Vocab handleButton={this.handleVocab}/>;
     }
 
     else{
