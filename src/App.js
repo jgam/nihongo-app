@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
-import './App.css';
+import './css/App.css';
 import Day from './Day';
 import Level from './Level';
 import Vocab from './Vocab';
