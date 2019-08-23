@@ -18,6 +18,7 @@ class App extends React.Component {
 
   handleLevel = input_level => {
     this.setState({
+      page_state: '2',
       level: input_level
     });
   }
@@ -37,14 +38,15 @@ class App extends React.Component {
   render_views = page_state => {
     if(page_state === '1'){
       console.log('here')
-      return <Level handleLevel={this.handleLevel}/>
+      return <Level handleButton={this.handleLevel}/>
     }
     else if(page_state === '2'){
-      return <Level handleLevel={this.handleLevel}/>
+      return <Day handleButton={this.handleLevel}/>
     }
     else if(page_state === '3'){
       return ;
     }
+
     else{
       return 'error occurred';
     }
@@ -53,6 +55,7 @@ class App extends React.Component {
   render(){
     //state logic
     var current_state = this.state.page_state;
+    console.log(this.state.level);
 
     //return
     return (
