@@ -41,7 +41,7 @@ class App extends React.Component {
       return <Level handleButton={this.handleLevel}/>
     }
     else if(page_state === '2'){
-      return <Day handleButton={this.handleLevel}/>
+      return <Day handleButton={this.handleDays}/>
     }
     else if(page_state === '3'){
       return ;
