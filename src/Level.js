@@ -18,7 +18,7 @@ const Level = ({ handleButton }) => {
 		<button onClick={() => handleButton('N2')}>N2</button>
 		<button onClick={() => handleButton('N1')}>N1</button>
 		<ButtonToolbar>
-			<Button variant="primary">Primary</Button>
+			<Button onClick={()=> handleButton('N5')} variant="primary">Primary N5</Button>
 		</ButtonToolbar>
 	  </div>
 	);
