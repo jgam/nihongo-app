@@ -13,7 +13,9 @@ class App extends React.Component {
       page_state: '1',
       level: '',
       days: '',
-      words: []
+      words: [],
+      list_words: [],
+      voc_rage: 0
     };
   }
   //handle functions update the states
@@ -24,11 +26,13 @@ class App extends React.Component {
     });
   }
 
-  handleDays = (input_days, words_list) => {
+  handleDays = (input_days, words_list, list_words, vocab_portion) => {
     this.setState({
       page_state:'3',
       days: input_days,
-      words: words_list
+      words: words_list,
+      list_words: list_words,
+      voc_range: vocab_portion
     });
     console.log('in handledays');
     console.log(words_list);
@@ -40,6 +44,7 @@ class App extends React.Component {
     })
   }
 
+
   render_views = page_state => {
     if(page_state === '1'){
       console.log('here')
@@ -49,7 +54,10 @@ class App extends React.Component {
       return <Day level={this.state.level} handleButton={this.handleDays}/>
     }
     else if(page_state === '3'){
-      return <Vocab output_words={this.state.words} handleButton={this.handleVocab}/>;
+      return <Vocab output_words={this.state.words} handleButton={this.handleVocab}
+      prevButton={this.handleDays} nextButton={this.handleDays} 
+      list_words={this.state.list_words} vocab_portion={this.state.voc_range}
+      day={this.state.input_days}/>;
     }
     else{
       return 'error occurred';
@@ -65,6 +73,16 @@ class App extends React.Component {
     return (
       <div className="App">
         <header className="App-header">
+          <div class="btn-menu">
+            <a href="">
+              <em>
+              </em>
+            </a>
+          </div>
+          <img src={logo} className="App-logo" alt="logo" />
+        </header>
+        {/*
+        <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
             Edit <code>src/App.js</code> and save to reload + welcome to nihongo app
@@ -78,7 +96,7 @@ class App extends React.Component {
             Learn React
           </a>
         </header>
-        
+        */}
         <div className="stateViews">
           {this.render_views(current_state)}
         </div>
