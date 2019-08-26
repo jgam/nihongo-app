@@ -51,7 +51,6 @@ class App extends React.Component {
     else if(page_state === '3'){
       return <Vocab output_words={this.state.words} handleButton={this.handleVocab}/>;
     }
-
     else{
       return 'error occurred';
     }
