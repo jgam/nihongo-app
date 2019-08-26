@@ -24,11 +24,14 @@ class App extends React.Component {
     });
   }
 
-  handleDays = input_days => {
+  handleDays = (input_days, words_list) => {
     this.setState({
       page_state:'3',
-      days: input_days
+      days: input_days,
+      words: words_list
     });
+    console.log('in handledays');
+    console.log(words_list);
   }
 
   handleVocab = (input_vocab, definitions) => {
@@ -43,10 +46,10 @@ class App extends React.Component {
       return <Level handleButton={this.handleLevel}/>
     }
     else if(page_state === '2'){
-      return <Day handleButton={this.handleDays}/>
+      return <Day level={this.state.level} handleButton={this.handleDays}/>
     }
     else if(page_state === '3'){
-      return <Vocab handleButton={this.handleVocab}/>;
+      return <Vocab output_words={this.state.words} handleButton={this.handleVocab}/>;
     }
 
     else{

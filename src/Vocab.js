@@ -1,10 +1,11 @@
 import React from 'react';
 
-const Vocab = ({ handleButton }) => {
-    var words = ['1','2','3'];
+const Vocab = ({ output_words, handleButton }) => {
+    console.log(output_words);
 	return (
 	  <div>
-		<button onClick={() => handleButton(words.slice(0, 19))}>this is vocabs</button>
+		<button onClick={() => handleButton(output_words.slice(0, 19))}>this is vocabs</button>
+        {JSON.stringify(output_words)}
 	  </div>
 	);
   };
