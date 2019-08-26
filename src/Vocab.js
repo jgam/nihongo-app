@@ -11,7 +11,7 @@ const Vocab = ({ output_words, handleButton }) => {
         {/*{JSON.stringify(output_words)}*/}
         {/*{output_words.map((item) => <li>{item}</li>)}*/}
         {output_words.map(word => (
-            <div className="word" key={word.word}>{word.word}</div>
+            <div className="word" key={word.word}>{word.word} : {word.meaning}</div>
         ))}
 	  </div>
 	);
