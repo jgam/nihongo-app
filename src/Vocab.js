@@ -4,10 +4,6 @@ import Button from 'react-bootstrap/Button'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 
 const Vocab = ({ output_words, handleButton, prevButton, nextButton, list_words, vocab_portion, day }) => {
-    alert(day);
-    console.log(output_words);
-    console.log('this props')
-    console.log(list_words.slice(vocab_portion*(day-2), vocab_portion*(day-1)));
 	return (
 	  <div>
         <link

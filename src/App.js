@@ -27,8 +27,6 @@ class App extends React.Component {
   }
 
   handleDays = (input_days, words_list, list_words, vocab_portion) => {
-    console.log(input_days);
-    console.log(typeof(input_days));
     this.setState({
       page_state:'3',
       days: input_days,
@@ -82,22 +80,6 @@ class App extends React.Component {
           </div>
           <img src={logo} className="App-logo" alt="logo" />
         </header>
-        {/*
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload + welcome to nihongo app
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-        */}
         <div className="stateViews">
           {this.render_views(current_state)}
         </div>
