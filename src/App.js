@@ -36,6 +36,17 @@ class App extends React.Component {
     });
   }
 
+  handleHome = () => {
+    this.setState({
+      page_state: '1',
+      level: '',
+      days: 0,
+      words: [],
+      list_words: [],
+      voc_rage: 0
+    })
+  }
+
   handleVocab = (input_vocab, definitions) => {
     this.setState({
 
@@ -56,7 +67,7 @@ class App extends React.Component {
       return <Vocab output_words={this.state.words} handleButton={this.handleVocab}
       prevButton={this.handleDays} nextButton={this.handleDays} 
       list_words={this.state.list_words} vocab_portion={this.state.voc_range}
-      day={this.state.days}/>;
+      day={this.state.days} handleHome={this.handleHome}/>;
     }
     else{
       return 'error occurred';
@@ -72,7 +83,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <header className="App-header">
-          <div class="btn-menu">
+          <div className="btn-menu">
             <a href="">
               <em>
               </em>
