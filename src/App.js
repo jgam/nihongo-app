@@ -12,7 +12,7 @@ class App extends React.Component {
     this.state = {
       page_state: '1',
       level: '',
-      days: '',
+      days: 0,
       words: [],
       list_words: [],
       voc_rage: 0
@@ -27,6 +27,8 @@ class App extends React.Component {
   }
 
   handleDays = (input_days, words_list, list_words, vocab_portion) => {
+    console.log(input_days);
+    console.log(typeof(input_days));
     this.setState({
       page_state:'3',
       days: input_days,
@@ -34,8 +36,6 @@ class App extends React.Component {
       list_words: list_words,
       voc_range: vocab_portion
     });
-    console.log('in handledays');
-    console.log(words_list);
   }
 
   handleVocab = (input_vocab, definitions) => {
@@ -46,6 +46,7 @@ class App extends React.Component {
 
 
   render_views = page_state => {
+    console.log('in renderviews: ', this.state.days);
     if(page_state === '1'){
       console.log('here')
       return <Level handleButton={this.handleLevel}/>
@@ -57,7 +58,7 @@ class App extends React.Component {
       return <Vocab output_words={this.state.words} handleButton={this.handleVocab}
       prevButton={this.handleDays} nextButton={this.handleDays} 
       list_words={this.state.list_words} vocab_portion={this.state.voc_range}
-      day={this.state.input_days}/>;
+      day={this.state.days}/>;
     }
     else{
       return 'error occurred';
@@ -67,7 +68,7 @@ class App extends React.Component {
   render(){
     //state logic
     var current_state = this.state.page_state;
-    console.log(this.state.level);
+    console.log('state inputs days: ',this.state.days);
 
     //return
     return (

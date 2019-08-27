@@ -27,7 +27,6 @@ const Day = ({ level, handleButton }) => {
   //this needs to be done with web db
   
   var vocab_portion = parseInt(words.length / 7);
-
 	return (
 	  <div>
 		<button onClick={() => handleButton(1,words.slice(vocab_portion*0, vocab_portion*1),words,vocab_portion)}>day 1</button>
