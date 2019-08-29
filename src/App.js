@@ -4,6 +4,18 @@ import './css/App.css';
 import Day from './Day';
 import Level from './Level';
 import Vocab from './Vocab';
+import { DBConfig } from './DBConfig';
+import{ initDB } from 'react-indexed-db';
+import { IndexedDB } from 'react-indexed-db';
+import PanelExample from './Panel';
+
+initDB(DBConfig);
+
+/**
+const App: React.FC = () => {
+  return <div>...</div>;
+};
+ */
 
 class App extends React.Component {
   //constructor sets the state
