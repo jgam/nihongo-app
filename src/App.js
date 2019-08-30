@@ -8,65 +8,23 @@ import { DBConfig } from './DBConfig';
 import{ initDB } from 'react-indexed-db';
 import { IndexedDB } from 'react-indexed-db';
 
-initDB(DBConfig);
+//calling the DB
+var db;
 var request = window.indexedDB.open("MyTestDatabase", 3);
 console.log(request);
 
+//calling requests error or success
 request.onerror = function(event) {
   // Do something with request.errorCode!
+  console.error("database error: " + event.target.errorCode);
+  alert('wrong db asccsess!!!!')
 };
 request.onsuccess = function(event) {
   // Do something with request.result!
-};
-
-var db;
-var request = indexedDB.open("MyTestDatabase");
-request.onerror = function(event) {
-  console.log("Why didn't you allow my web app to use IndexedDB?!");
-};
-request.onsuccess = function(event) {
   db = event.target.result;
 };
 
-// This is what our customer data looks like.
-const customerData = [
-  { ssn: "444-44-4444", name: "Bill", age: 35, email: "bill@company.com" },
-  { ssn: "555-55-5555", name: "Donna", age: 32, email: "donna@home.org" }
-];
 
-const dbName = "the_name";
-
-var request = indexedDB.open(dbName, 2);
-
-request.onerror = function(event) {
-  // Handle errors.
-};
-request.onupgradeneeded = function(event) {
-  var db = event.target.result;
-
-  // Create an objectStore to hold information about our customers. We're
-  // going to use "ssn" as our key path because it's guaranteed to be
-  // unique - or at least that's what I was told during the kickoff meeting.
-  var objectStore = db.createObjectStore("customers", { keyPath: "ssn" });
-
-  // Create an index to search customers by name. We may have duplicates
-  // so we can't use a unique index.
-  objectStore.createIndex("name", "name", { unique: false });
-
-  // Create an index to search customers by email. We want to ensure that
-  // no two customers have the same email, so use a unique index.
-  objectStore.createIndex("email", "email", { unique: true });
-
-  // Use transaction oncomplete to make sure the objectStore creation is 
-  // finished before adding data into it.
-  objectStore.transaction.oncomplete = function(event) {
-    // Store values in the newly created objectStore.
-    var customerObjectStore = db.transaction("customers", "readwrite").objectStore("customers");
-    customerData.forEach(function(customer) {
-      customerObjectStore.add(customer);
-    });
-  };
-};
 
 class App extends React.Component {
   //constructor sets the state
