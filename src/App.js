@@ -116,13 +116,18 @@ class App extends React.Component {
   }
 
   handleDays = (input_days, words_list, list_words, vocab_portion) => {
-    this.setState({
-      page_state:'3',
-      days: input_days,
-      words: words_list,
-      list_words: list_words,
-      voc_range: vocab_portion
-    });
+    if (input_days > 0 && input_days < 8){
+      this.setState({
+        page_state:'3',
+        days: input_days,
+        words: words_list,
+        list_words: list_words,
+        voc_range: vocab_portion
+      });
+    }
+    else{
+      alert('This is either the first or last page');
+    }
   }
 
   handleHome = () => {
