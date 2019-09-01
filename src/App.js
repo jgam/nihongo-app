@@ -55,7 +55,8 @@ request.onsuccess = function(event){
   var products = [
     {id: 1, name: 'Red Men T-Shirt', price: '$3.99'},
     {id: 2, name: 'Pink Women Shorts', price: '%5.99'},
-    {id: 3, name: 'Nike White Shoes', price: '$300'}
+    {id: 3, name: 'Nike White Shoes', price: '$300'},
+    {id: 4, user: "jimmy", progress:"done"}
   ];
   
   //get database from event
