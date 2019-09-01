@@ -4,9 +4,6 @@ import './css/App.css';
 import Day from './Day';
 import Level from './Level';
 import Vocab from './Vocab';
-import { DBConfig } from './DBConfig';
-import{ initDB } from 'react-indexed-db';
-import { IndexedDB } from 'react-indexed-db';
 
 /*
 //sample db data
@@ -34,64 +31,74 @@ request.onsuccess = function(event) {
  */
 
  // This is what our customer data looks like.
-const customerData = [
-  { ssn: "444-44-4444", name: "Bill", age: 35, email: "bill@company.com" },
-  { ssn: "555-55-5555", name: "Donna", age: 32, email: "donna@home.org" }
-];
 
-const dbName = "nihongo";
+ var request = indexedDB.open('EXAMPLE_DB', 1);
 
-//open the database
-var request = indexedDB.open(dbName, 1);
-var db;
-
-if(window.indexedDB){
-  alert('allowed');
-}
-
-request.onsuccess = function(event){
-  console.log('[onsuccess]', request.result);
-  //db = event.target.result;//===request.result
-  var products = [
-    {id: 1, name: 'Red Men T-Shirt', price: '$3.99'},
-    {id: 2, name: 'Pink Women Shorts', price: '%5.99'},
-    {id: 3, name: 'Nike White Shoes', price: '$300'},
-    {id: 4, user: "jimmy", progress:"done"}
-  ];
-  
-  //get database from event
-  var db = event.target.result;
-
-  //create transaction from database
-  var transaction = db.transaction('products', 'readwrite');
-
-  //add success event handler for transaction
-  //should also add onerror, onabort event handlers
-  transaction.onsuccess = function(event){
-    console.log('[Transaction] ALL DONE!');
-  };
-
-  //get store from transaction
-  //returns IDBObjectStore instance
-  var productStore = transaction.objectStore('products');
-
-  //put products data in productStore
-  products.forEach(function(product){
-    var db_op_req = productStore.add(product);//IDBRequest
-  });
-};
-
-request.onerror = function(event) {
-  console.log('[onerror]', request.error);
-};
-
-request.onupgradeneeded = function(event) {
-  // create object store from db or event.target.result
-  var db = event.target.result;
-  var store = db.createObjectStore('products', {keyPath: 'id'});
-  //create unique index on keyPath === 'id'
-  store.createIndex('products_id_unique', 'id', {unique:true});
-};
+ request.onsuccess = function(event) {
+     // some sample products data
+     var products = [
+         {id: 1, name: 'Red Men T-Shirt', price: '$3.99'},
+         {id: 2, name: 'Pink Women Shorts', price: '$5.99'},
+         {id: 3, name: 'Nike white Shoes', price: '$300'}
+     ];
+ 
+     // get database from event
+     var db = event.target.result;
+ 
+     // create transaction from database
+     var transaction = db.transaction('products', 'readwrite');
+ 
+     // add success event handleer for transaction
+     // you should also add onerror, onabort event handlers
+     transaction.onsuccess = function(event) {
+         console.log('[Transaction] ALL DONE!');
+     };
+ 
+     // get store from transaction
+     var productsStore = transaction.objectStore('products');
+ 
+     /*************************************/
+ 
+     // put products data in productsStore
+     products.forEach(function(product){
+         var db_op_req = productsStore.add(product);
+ 
+         db_op_req.onsuccess = function(event) {
+             console.log(event.target.result == product.id); // true
+         }
+     });
+ 
+     // count number of objects in store
+     productsStore.count().onsuccess = function(event) {
+         console.log('[Transaction - COUNT] number of products in store', event.target.result);
+     };
+ 
+     // get product with id 1
+     productsStore.get(1).onsuccess = function(event) {
+         console.log('[Transaction - GET] product with id 1', event.target.result);
+     };
+ 
+     // update product with id 1
+     products[0].name = 'Blue Men T-shirt';
+     productsStore.put(products[0]).onsuccess = function(event) {
+         console.log('[Transaction - PUT] product with id 1', event.target.result);
+     };
+     /*
+     // delete product with id 2
+     productsStore.delete(2).onsuccess = function(event) {
+         console.log('[Transaction - DELETE] deleted with id 2');
+     };
+      */
+ };
+ 
+ request.onerror = function(event) {
+     console.log('[onerror]', request.error);
+ };
+ 
+ request.onupgradeneeded = function(event) {
+     var db = event.target.result;
+     var productsStore = db.createObjectStore('products', {keyPath: 'id'});
+ };
 
 
 
