@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import logo from './logo.svg';
 import './css/App.css';
 import Day from './Day';
 import Level from './Level';
 import Vocab from './Vocab';
+import Database from './Database';
 
 //db steps
 
@@ -31,77 +32,8 @@ class App extends React.Component {
     };
 
     //db setup
-    var request = indexedDB.open('vocabDB', 1);
-
-    //db upgrade needed
-    request.onupgradeneeded = function(event) {
-      console.log('first db createion');
-       var db = event.target.result;
-       var productsStore = db.createObjectStore('VocabDB', {keyPath: 'id'});
-    };
-
-    //db onsuccess
-    request.onsuccess = function(event) {
-      console.log('request done succesffullly');
-      // some sample products data
-      var vocabProgress = [
-        {id: 1, name: 'Red Men T-Shirt', price: '$3.99'},
-        {id: 2, name: 'Pink Women Shorts', price: '$5.99'},
-        {id: 3, name: 'Nike white Shoes', price: '$300'},
-        {id: 4, name: 'Jimmy', price: '$100.99'}
-      ];
-
-      // get database from event
-      var db = event.target.result;
-
-      // create transaction from database
-      var transaction = db.transaction(["VocabDB"], 'readwrite');//more like giving access
-      //var transaction = db.createObjectStore('vocabProgress', {keyPath: 'id'});
-      // add success event handleer for transaction
-      // you should also add onerror, onabort event handlers
-      transaction.onsuccess = function(event) {
-          console.log('[Transaction] ALL DONE!');
-          console.log('erroorrrr!!');
-      };
-
-      // get store from transaction
-      var productsStore = transaction.objectStore('VocabDB');
-
-      /*************************************/
-
-      // put products data in productsStore
-      vocabProgress.forEach(function(vocab){//this is like lambda function
-          var db_op_req = productsStore.add(vocab);
-
-          db_op_req.onsuccess = function(event) {
-              console.log(event.target.result === vocab.id); // true
-              console.log('db transaction is true ');
-          }
-      });
-
-      // count number of objects in store
-      productsStore.count().onsuccess = function(event) {
-          console.log('[Transaction - COUNT] number of products in store', event.target.result);
-      };
-
-      // get product with id 1
-      productsStore.get(1).onsuccess = function(event) {
-          console.log('[Transaction - GET] product with id 1', event.target.result);
-      };
-
-      // update product with id 1
-      vocabProgress[0].name = 'Blue Men T-shirt';
-      productsStore.put(vocabProgress[0]).onsuccess = function(event) {
-          console.log('[Transaction - PUT] product with id 1', event.target.result);
-      };
-      /*
-      // delete product with id 2
-      productsStore.delete(2).onsuccess = function(event) {
-          console.log('[Transaction - DELETE] deleted with id 2');
-      };
-      */
-      };
-    }
+  
+ }
 
   //db add data!
   updateDB = () => {
@@ -111,6 +43,9 @@ class App extends React.Component {
          console.log('[Transaction - PUT] product with id 1', event.target.result);
      };
     */
+   this.setState({
+     page_state: '4'
+   });
 
 
   }
@@ -157,17 +92,6 @@ class App extends React.Component {
 
 
   render_views = page_state => {
-    var request = indexedDB.open('vocabDB', 1);
-    request.onsuccess = function(event){
-      var db = event.target.result;
-      var transaction = db.transaction(["VocabDB"], 'readwrite');
-      var productsStore = transaction.objectStore('VocabDB');
-      productsStore.get(1).onsuccess = function(event) {
-        console.log('[Transaction - GET] product with id 1', event.target.result);
-    };
-    }
-
-    console.log('request is : ',request);
     console.log('in renderviews: ', this.state.days);
     if(page_state === '1'){
       console.log('here')
@@ -180,10 +104,10 @@ class App extends React.Component {
       return <Vocab output_words={this.state.words} handleButton={this.handleVocab}
       prevButton={this.handleDays} nextButton={this.handleDays} 
       list_words={this.state.list_words} vocab_portion={this.state.voc_range}
-      day={this.state.days} handleHome={this.handleHome}/>;
+      day={this.state.days} handleHome={this.handleHome} updateDB={this.updateDB}/>;
     }
     else{
-      return 'error occurred';
+      return <Database />;
     }
   }
 
@@ -191,6 +115,7 @@ class App extends React.Component {
     //state logic
     var current_state = this.state.page_state;
     console.log('state inputs days: ',this.state.days);
+
 
     //return
     return (

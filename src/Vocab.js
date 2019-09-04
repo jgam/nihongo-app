@@ -3,7 +3,7 @@ import { tsConstructorType } from '@babel/types';
 import Button from 'react-bootstrap/Button'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
 
-const Vocab = ({ output_words, handleButton, prevButton, nextButton, list_words, vocab_portion, day, handleHome }) => {
+const Vocab = ({ output_words, handleButton, prevButton, nextButton, list_words, vocab_portion, day, handleHome, updateDB }) => {
 	return (
 	  <div>
         <link
@@ -19,7 +19,8 @@ const Vocab = ({ output_words, handleButton, prevButton, nextButton, list_words,
         <br></br>
 		<button onClick={() => prevButton(day-1,list_words.slice(vocab_portion*(day-2), vocab_portion*(day-1)),list_words,vocab_portion)}>Previous</button>
         <button onClick={() => nextButton(day+1,list_words.slice(vocab_portion*(day), vocab_portion*(day+1)),list_words,vocab_portion)}>Next</button>
-
+        <br></br>
+        <button onClick={()=> updateDB()}> Exam! </button>
         {/*{JSON.stringify(output_words)}*/}
         {/*{output_words.map((item) => <li>{item}</li>)}*/}
         {output_words.map(word => (
