@@ -20,7 +20,7 @@ const Vocab = ({ output_words, handleButton, prevButton, nextButton, list_words,
 		<button onClick={() => prevButton(day-1,list_words.slice(vocab_portion*(day-2), vocab_portion*(day-1)),list_words,vocab_portion)}>Previous</button>
         <button onClick={() => nextButton(day+1,list_words.slice(vocab_portion*(day), vocab_portion*(day+1)),list_words,vocab_portion)}>Next</button>
         <br></br>
-        <button onClick={()=> updateDB()}> Exam! </button>
+        <button onClick={()=> updateDB(output_words)}> Exam! </button>
         {/*{JSON.stringify(output_words)}*/}
         {/*{output_words.map((item) => <li>{item}</li>)}*/}
         {output_words.map(word => (

@@ -10,20 +10,23 @@ DB creating steps
 */
 
 
-const Database = ({ level, handleButton }) =>{
+const Database = ({ words }) =>{
     var request = indexedDB.open('VocabDB', 1);
     var db;
 
+    console.log(words.length);
+    console.log(words[0]);
+    console.log(words[1]);
+    /*
+    Now, we write these words to database and use the data to randomly create the test.
+    */
     //request on success
     request.onsuccess = function(event) {
         console.log('[onsuccess]', request.result);
         db = event.target.result; // === request.result
 
         //vocab DB data should be defined here
-        var vocabs_db = [
-            {id: 1, name: 'red', price: '$3.99'},
-            {id: 2, name: 'blue', price: '$4.99'}
-        ];
+        var vocabs_db = words;
 
         var transaction = db.transaction('VocabDB', 'readwrite');
 
@@ -73,7 +76,7 @@ const Database = ({ level, handleButton }) =>{
 
         var db = event.target.result;
         //here crated Objectstore
-        var productsStore = db.createObjectStore('VocabDB', {keyPath: 'id'});
+        var productsStore = db.createObjectStore('VocabDB', {keyPath: 'index'});
 
     };
 

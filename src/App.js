@@ -107,7 +107,7 @@ class App extends React.Component {
       day={this.state.days} handleHome={this.handleHome} updateDB={this.updateDB}/>;
     }
     else{
-      return <Database />;
+      return <Database words={this.state.words}/>;
     }
   }
 
