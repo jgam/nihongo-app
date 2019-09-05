@@ -31,6 +31,7 @@ const Database = ({ words }) =>{
         var random_i = 10;
         while(random_i < vocabs_db.length - 10){
             //4개중 하나골르기
+            //this done
             console.log('while loop random_i = ', random_i);
             testing_vocabs.push(vocabs_db[random_i - Math.floor(Math.random() * 10)]);
             random_i += 10;
