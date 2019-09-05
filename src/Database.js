@@ -27,6 +27,19 @@ const Database = ({ words }) =>{
 
         //vocab DB data should be defined here
         var vocabs_db = words;
+        var testing_vocabs = [];
+        var random_i = 10;
+        while(random_i < vocabs_db.length - 10){
+            //4개중 하나골르기
+            console.log('while loop random_i = ', random_i);
+            testing_vocabs.push(vocabs_db[random_i - Math.floor(Math.random() * 10)]);
+            random_i += 10;
+        }
+
+        console.log(testing_vocabs)
+
+        //here you need to shuffle the words
+        //and put those words into as a vocab test.
 
         var transaction = db.transaction('VocabDB', 'readwrite');
 
