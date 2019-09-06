@@ -13,10 +13,6 @@ DB creating steps
 const Database = ({ words }) =>{
     var request = indexedDB.open('VocabDB', 1);
     var db;
-
-    console.log(words.length);
-    console.log(words[0]);
-    console.log(words[1]);
     /*
     Now, we write these words to database and use the data to randomly create the test.
     */
@@ -30,7 +26,6 @@ const Database = ({ words }) =>{
         var testing_vocabs = [];
         var random_i = 10;
         while(random_i < vocabs_db.length - 10){
-            //4개중 하나골르기
             //this done
             console.log('while loop random_i = ', random_i);
             testing_vocabs.push(vocabs_db[random_i - Math.floor(Math.random() * 10)]);
@@ -38,6 +33,7 @@ const Database = ({ words }) =>{
         }
 
         console.log(testing_vocabs)
+        vocab_db = testing_vocabs;//now we are renewing the new vocabs to database
 
         //here you need to shuffle the words
         //and put those words into as a vocab test.
@@ -94,9 +90,15 @@ const Database = ({ words }) =>{
 
     };
 
+    //another method to access db and import from db
+    //this can be reused with creating odab note!
+
     return(
         <div>
             hello world
+            {output_words.map(word => (
+            <div className="word" key={word.word}>{word.word} : {word.meaning}</div>
+        ))}
         </div>
     )
 
