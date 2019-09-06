@@ -31,8 +31,6 @@ const Database = ({ words }) =>{
             testing_vocabs.push(vocabs_db[random_i - Math.floor(Math.random() * 10)]);
             random_i += 10;
         }
-
-        console.log(testing_vocabs)
         vocabs_db = testing_vocabs;//now we are renewing the new vocabs to database
         //just to see if it gets changed.
         words = testing_vocabs//just to see
@@ -49,7 +47,7 @@ const Database = ({ words }) =>{
         var productsStore = transaction.objectStore('VocabDB');
 
         vocabs_db.forEach(function(product){
-            var db_op_req = productsStore.add(product);//IDBRequest
+            productsStore.add(product);//IDBRequest
         });
         /*
         some tips how to CRUD the data
@@ -94,11 +92,14 @@ const Database = ({ words }) =>{
     //another method to access db and import from db
     //this can be reused with creating odab note!
     
+    console.log('db is ', db);
+    //var db = request.result;
+    //console.log(db.transaction('VocabDB').objectStore('VocabDB'));
 
     return(
         <div>
             hello world
-            {vocabs_db.map(word => (
+            {words.map(word => (
             <div className="word" key={word.word}>{word.word} : {word.meaning}</div>
         ))}
         </div>
