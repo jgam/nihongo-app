@@ -49,7 +49,7 @@ class App extends React.Component {
     */
    const db = new Dexie('VocabDB');
    console.log('db is : ', db);
-
+   //here lets call the api
    console.log('request is here : ', request);
    //request.event.target.result.transaction('VocabDB', 'readwrite').objectStore('VocabDB')
    this.setState({
