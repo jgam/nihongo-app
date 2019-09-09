@@ -1,7 +1,9 @@
 import React from 'react';
+import Dexie from 'dexie';
 import { tsConstructorType } from '@babel/types';
 import Button from 'react-bootstrap/Button'
 import ButtonToolbar from 'react-bootstrap/ButtonToolbar'
+import { deflateRawSync } from 'zlib';
 
 const Vocab = ({ output_words, handleButton, prevButton, nextButton, list_words, vocab_portion, day, handleHome, updateDB }) => {
     var request = indexedDB.open('VocabDB', 1);
@@ -9,6 +11,7 @@ const Vocab = ({ output_words, handleButton, prevButton, nextButton, list_words,
     /*
     Now, we write these words to database and use the data to randomly create the test.
     */
+   console.log('initial outputwords are: ', output_words);
     
     //request on success
     request.onsuccess = function(event) {
@@ -19,6 +22,8 @@ const Vocab = ({ output_words, handleButton, prevButton, nextButton, list_words,
         var vocabs_db = output_words;
         var testing_vocabs = [];
         var random_i = 10;
+
+        //taking out 1 vocab for every 10 vocabs
         while(random_i < vocabs_db.length - 10){
             //this done
             console.log('while loop random_i = ', random_i);
@@ -28,6 +33,7 @@ const Vocab = ({ output_words, handleButton, prevButton, nextButton, list_words,
         vocabs_db = testing_vocabs;//now we are renewing the new vocabs to database
         //words is changed to testing_vocabs
         output_words = testing_vocabs;//words didn't change.
+        console.log('after modified outputwords : ',output_words);
 
         var transaction = db.transaction('VocabDB', 'readwrite');
 
@@ -78,15 +84,10 @@ const Vocab = ({ output_words, handleButton, prevButton, nextButton, list_words,
         var db = event.target.result;
         //here crated Objectstore
         var productsStore = db.createObjectStore('VocabDB', {keyPath: 'index'});
-
+        console.log('alelalelael');
     };
+    console.log('outputwords are : ', output_words);
 
-    //another method to access db and import from db
-    //this can be reused with creating odab note!
-    
-    console.log('db is ', db);
-    //var db = request.result;
-    //console.log(db.transaction('VocabDB').objectStore('VocabDB'));
 
     //how do we await for output_words to be implemented first
     return (
@@ -105,7 +106,7 @@ const Vocab = ({ output_words, handleButton, prevButton, nextButton, list_words,
 		<button onClick={() => prevButton(day-1,list_words.slice(vocab_portion*(day-2), vocab_portion*(day-1)),list_words,vocab_portion)}>Previous</button>
         <button onClick={() => nextButton(day+1,list_words.slice(vocab_portion*(day), vocab_portion*(day+1)),list_words,vocab_portion)}>Next</button>
         <br></br>
-        <button onClick={()=> updateDB(output_words)}> Exam! </button>
+        <button onClick={()=> updateDB(request,output_words)}> Exam! </button>
         {/*{JSON.stringify(output_words)}*/}
         {/*{output_words.map((item) => <li>{item}</li>)}*/}
         {output_words.map(word => (

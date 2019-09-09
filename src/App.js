@@ -5,6 +5,9 @@ import Day from './Day';
 import Level from './Level';
 import Vocab from './Vocab';
 import Database from './Database';
+import Exam from './Exam';
+import Dexie from 'dexie';
+
 
 //db steps
 
@@ -28,7 +31,8 @@ class App extends React.Component {
       days: 0,
       words: [],
       list_words: [],
-      voc_rage: 0
+      voc_rage: 0,
+      testing_vocabs: []
     };
 
     //db setup
@@ -36,13 +40,18 @@ class App extends React.Component {
  }
 
   //db add data!
-  updateDB = () => {
+  updateDB = (request, output_words) => {
     /*
     vocabProgress[0].name = 'Blue Men T-shirt';
      productsStore.put(vocabProgress[0]).onsuccess = function(event) {
          console.log('[Transaction - PUT] product with id 1', event.target.result);
      };
     */
+   const db = new Dexie('VocabDB');
+   console.log('db is : ', db);
+
+   console.log('request is here : ', request);
+   //request.event.target.result.transaction('VocabDB', 'readwrite').objectStore('VocabDB')
    this.setState({
      page_state: '4'
    });
@@ -107,7 +116,7 @@ class App extends React.Component {
       day={this.state.days} handleHome={this.handleHome} updateDB={this.updateDB}/>;
     }
     else{
-      return <Database words={this.state.words}/>;
+      return <Exam words={this.state.words}/>;
     }
   }
 
