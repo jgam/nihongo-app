@@ -6,7 +6,7 @@ import Level from './Level';
 import Vocab from './Vocab';
 import Database from './Database';
 import Exam from './Exam';
-import Dexie from 'dexie';
+import Dexie from 'dexie'; 
 
 
 //db steps
@@ -47,10 +47,10 @@ class App extends React.Component {
          console.log('[Transaction - PUT] product with id 1', event.target.result);
      };
     */
-   const db = new Dexie('VocabDB');
-   console.log('db is : ', db);
+   //const db = new Dexie('VocabDB');
+   //console.log('db is : ', db);
    //here lets call the api
-   console.log('request is here : ', request);
+   //console.log('request is here : ', request);
    //request.event.target.result.transaction('VocabDB', 'readwrite').objectStore('VocabDB')
    this.setState({
      page_state: '4'
@@ -116,7 +116,8 @@ class App extends React.Component {
       day={this.state.days} handleHome={this.handleHome} updateDB={this.updateDB}/>;
     }
     else{
-      return <Exam words={this.state.words}/>;
+      //this part should be vocab. Then vocab call the Database to fetch. In doign that we need diffent approaches what to fetch
+      return <Database condition={'2'} output_words={this.state.list_words}/>;
     }
   }
 
