@@ -20,9 +20,7 @@ const Database = ({condition ,output_words}) => {
         var vocabs_db = output_words;
         var testing_vocabs = [];
         var random_i = 10;
-        if(vocabs_db === undefined){
-            vocabs_db={}
-        }
+        
         
         //taking out 1 vocab for every 10 vocabs
         while(random_i < vocabs_db.length - 10){
