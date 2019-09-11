@@ -125,11 +125,10 @@ class App extends React.Component {
     //state logic
     var current_state = this.state.page_state;
     console.log('state inputs days: ',this.state.days);
-
-
     //return
     return (
       <div className="App">
+       
         <header className="App-header">
           <div className="btn-menu">
             <a href="">

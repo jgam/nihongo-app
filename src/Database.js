@@ -3,7 +3,7 @@ import React from 'react';
 import { directive } from '@babel/types';
 
 
-const Database = ({condition,output_words}) => {
+const Database = ({condition ,output_words}) => {
     var request = indexedDB.open('VocabDB', 1);
     var db, vocabs_db;
     /*
@@ -20,7 +20,10 @@ const Database = ({condition,output_words}) => {
         var vocabs_db = output_words;
         var testing_vocabs = [];
         var random_i = 10;
-
+        if(vocabs_db === undefined){
+            vocabs_db={}
+        }
+        
         //taking out 1 vocab for every 10 vocabs
         while(random_i < vocabs_db.length - 10){
             //this done
@@ -48,8 +51,8 @@ const Database = ({condition,output_words}) => {
         }
         else{
             productsStore.getAll().onsuccess = function(event){
-                console.log(event.target.result);
                 vocabs_db = event.target.result;
+                return vocabs_db;
             };
         }
         /*
